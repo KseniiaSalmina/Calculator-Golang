@@ -44,16 +44,16 @@ func Calculator(a int, c string, b int) int {
 func SplitExpression(s string) (string, string, string) {
 	var split []string
 	var sig, n1, n2 string
-	if strings.Contains(s, "+") == true {
+	if strings.Count(s, "+") == 1 && strings.ContainsAny(s, "-*/") == false {
 		split = strings.Split(s, "+")
 		sig = "+"
-	} else if strings.Contains(s, "-") == true {
+	} else if strings.Count(s, "-") == 1 && strings.ContainsAny(s, "+*/") == false {
 		split = strings.Split(s, "-")
 		sig = "-"
-	} else if strings.Contains(s, "/") == true {
+	} else if strings.Count(s, "/") == 1 && strings.ContainsAny(s, "-+*") == false {
 		split = strings.Split(s, "/")
 		sig = "/"
-	} else if strings.Contains(s, "*") == true {
+	} else if strings.Count(s, "*") == 1 && strings.ContainsAny(s, "-+/") == false {
 		split = strings.Split(s, "*")
 		sig = "*"
 	} else {
