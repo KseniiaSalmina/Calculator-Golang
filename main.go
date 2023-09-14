@@ -83,8 +83,9 @@ func Transformation(a string, b string) (int, int, int) {
 		}
 	}
 	if t == 0 {
-		k := TestGreaterThanX(a, b)
-		if k == false {
+		k1 := TestGreaterThanX(a)
+		k2 := TestGreaterThanX(b)
+		if k1 == false && k2 == false {
 			a2, _ := strconv.Atoi(a)
 			b2, _ := strconv.Atoi(b)
 			if a2 <= 10 && b2 <= 10 {
@@ -93,11 +94,20 @@ func Transformation(a string, b string) (int, int, int) {
 				fmt.Println("ERROR: cannot use numbers greater than 10")
 				os.Exit(2)
 			}
-		} else if k == true {
+		} else if k1 == true && k2 == true {
+			fmt.Println("ERROR: cannot use numbers greater than X")
+			os.Exit(2)
+		} else if k1 == true || k2 == true {
+			fmt.Println("ERROR: cannot use numbers of different systems")
+			os.Exit(3)
+		}
+	} else if t == 1 {
+		k1 := TestGreaterThanX(a)
+		k2 := TestGreaterThanX(b)
+		if k1 == true && k2 == true {
 			fmt.Println("ERROR: cannot use numbers greater than X")
 			os.Exit(2)
 		}
-	} else if t == 1 {
 		fmt.Println("ERROR: cannot use numbers of different systems")
 		os.Exit(3)
 	}
@@ -107,7 +117,7 @@ func Transformation(a string, b string) (int, int, int) {
 func RomanResultConversion(n int) (s string) {
 	var n1 string
 	if n <= 0 {
-		fmt.Println("ERROR: roman numbers can only be positive, the result of calculation does nit match the condition")
+		fmt.Println("ERROR: roman numbers can only be positive, the result of calculation does not match the condition")
 		os.Exit(4)
 	} else if n > 0 && n <= 10 {
 		n1 = roman[n-1]
@@ -137,22 +147,12 @@ func RomanResultConversion(n int) (s string) {
 
 }
 
-func TestGreaterThanX(s1 string, s2 string) bool {
+func TestGreaterThanX(s1 string) bool {
 	t := true
 	switch {
 	case t == strings.Contains(s1, "X"):
 		return t
 	case t == strings.Contains(s1, "I"):
-		return t
-	case t == strings.Contains(s1, "V"):
-		return t
-	case t == strings.Contains(s1, "L"):
-		return t
-	case t == strings.Contains(s1, "C"):
-		return t
-	case t == strings.Contains(s2, "I"):
-		return t
-	case t == strings.Contains(s1, "X"):
 		return t
 	case t == strings.Contains(s1, "V"):
 		return t
